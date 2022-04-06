@@ -1,0 +1,6 @@
+- name: Get stats
+  shell: echo $(docker ps -q | xargs -L 1 docker logs | grep '| 200' -c)
+  register: echo_content
+
+- debug:
+    msg: "Hit {{ echo_content.stdout }} requests."

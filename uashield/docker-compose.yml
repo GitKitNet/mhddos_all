@@ -1,0 +1,16 @@
+version: '2'
+services:
+    uashield:
+      build: .
+      restart: always
+      container_name: uashield
+      image: uashield:latest
+      environment:
+        WORKERS: '256'
+        USEPROXY: 'true'
+      networks:
+        - shield
+
+networks:
+  shield:
+    driver: bridge

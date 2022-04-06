@@ -1,0 +1,90 @@
+{
+  "jobs": [
+    {
+      "type": "http",
+      "filter": "{{ eq (mod . 2) 0 }}",
+      "args": {
+        "method": "GET",
+        "path": "http://localhost:8080/test?queryparam=test&s={{ random_uuid }}",
+        "headers": {
+          "Authorization": "wtf"
+        },
+        "client": {
+          "proxy_urls": "{{ join get_proxylist \",\" }}"
+        },
+        "interval_ms": 100
+      }
+    },
+    {
+      "type": "tcp",
+      "args": {
+        "address": "localhost:9090",
+        "header": "test",
+        "body": "more_test"
+      }
+    },
+    {
+      "type": "udp",
+      "count": 100,
+      "args": {
+        "address": "localhost:9191",
+        "header": "test",
+        "body": "more_test",
+        "interval_ms": 1000
+      }
+    },
+    {
+      "type": "http",
+      "args": {
+        "method": "GET",
+        "path": "https://localhost:8080/search?searchid={{ random_uuid }}&l10n=ru&reqenc=&text={{ random_uuid }}",
+        "headers": {}
+      }
+    },
+    {
+      "type": "dns-blast",
+      "args": {
+        "root_domain": "example.com",
+        "protocol": "udp",
+        "seed_domains": ["yahoo.com"],
+        "parallel_queries": 3,
+        "interval_ms": 100
+      }
+    },
+    {
+      "type": "slow-loris",
+      "args": {
+        "path": "https://localhost:9090/inc2/common/js/doo/modules/searchSite/u.php"
+      }
+    },
+    {
+      "type": "packetgen",
+      "args": {
+        "host": "{{ resolve_host \"localhost\" }}",
+        "port": "{{ random_port }}",
+        "packet": {
+          "payload": "test:blah",
+          "ethernet": {
+            "src_mac": "{{ random_mac_addr }}",
+            "dst_mac": "{{ random_mac_addr }}"
+          },
+          "ip": {
+            "src_ip": "{{ local_ip }}",
+            "dst_ip": "{{ resolve_host \"localhost\" }}"
+          },
+          "tcp": {
+            "src_port": "{{ random_port }}",
+            "dst_port": "{{ random_port }}",
+            "flags": {
+              "syn": true
+            }
+          },
+          "udp": {
+            "src_port": "{{ random_port }}",
+            "dst_port": "{{ random_port }}"
+          }
+        }
+      }
+    }
+  ]
+}

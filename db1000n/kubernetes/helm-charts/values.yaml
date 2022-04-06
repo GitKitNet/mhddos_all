@@ -1,0 +1,27 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/arriven/db1000n-advanced
+  pullPolicy: Always
+  # Available images: https://github.com/Arriven/db1000n/pkgs/container/db1000n
+  tag: latest
+
+resources:
+  {}
+  # limits:
+  #   cpu: 2
+  #   memory: 2Gi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+podSecurityContext: {}
+securityContext: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}

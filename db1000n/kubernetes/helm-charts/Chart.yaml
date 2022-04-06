@@ -1,0 +1,6 @@
+apiVersion: v2
+name: db1000n
+description: db1000n Helm chart
+
+type: application
+version: 1.0.0
